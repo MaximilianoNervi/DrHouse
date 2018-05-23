@@ -1,0 +1,38 @@
+/*Se pide:
+ * Hacer que Cameron atienda a Logan.
+ * Existen médicos que son jefes de departamento, como House, que cuando tienen que atender a un paciente, 
+ * no le administran medicación sino que les dicen a uno sus subordinados que lo hagan. Hacer que House atienda a Cameron.
+ * Hacer que House contraiga la Muerte. La Muerte disminuye toda la temperatura de la persona y no se atenúa con ningún medicamento.
+ * Para pensar: Aparece una nueva enfermedad que cualquier persona puede contraer. ¿qué deberíamos saber de ella para poder representarla?
+ * ¿cuáles serían las alternativas de solución?
+ * Para pensar: Ahora queremos modelar una enfermedad como el sida, que es tanto infecciosa como autoinmune. ¿Cómo lo solucionamos?
+ * Para pensar: ¿Qué pasaría si todas las enfermedades matan las células que afectan? ¿Y si las autoinmunes tuvieran otro efecto adicional?
+ */
+import pacientes.*
+import doctores.*
+import enfermedades.*
+
+describe "Segunda Parte Dr.House" {
+
+	const foreman = new Doctor(cantidadDeMedicinaQueSuministra = 400, doctor = self)
+	const cameron = new Doctor(cantidadDeMedicinaQueSuministra = 300, doctor = self)
+	const drHouse = new JefeDeDepartamento()
+	const logan = new Paciente()
+	const malaria = new Infecciosa(cantidadDeCelulasQueAmenaza = 5000)
+	const lupus = new Autoinmune(cantidadDeCelulasQueAmenaza = 10000)
+
+	test "Hacer que Cameron atienda a Logan" {
+		logan.contraerEnfermedad(malaria)
+		cameron.tratarPaciente(logan)
+		assert.equals(500, malaria.cantidadDeCelulasQueAmenaza())
+	}
+
+	test "Hacer que House atienda a Cameron" {
+		logan.cambiarDoctor(cameron)
+		logan.contraerEnfermedad(malaria)
+		drHouse.tratarPaciente(logan)
+		assert.equals(500, malaria.cantidadDeCelulasQueAmenaza())
+	}
+
+}
+

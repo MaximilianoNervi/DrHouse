@@ -1,0 +1,74 @@
+/*	
+ * Se pide:
+ * Crear una malaria de 5000 células amenazadas y un lupus de 10000.
+ * Crear a Logan con valores saludables.
+ * Hacer que la malaria se reproduzca.
+ * Hacer que Logan contraiga esa malaria.
+ * Hacer que Logan viva un día de su vida.
+ * Hacer que Logan contraiga también lupus.
+ * Hacer que Logan viva otro día de su vida.
+ * Hacer que dichas malaria se atenúe en 1000 y el lupus en 500.
+ * Hacer que Logan viva otro día de su vida.
+ */
+import pacientes.*
+import enfermedades.*
+
+describe "Logan" {
+
+	const logan = new Paciente()
+	const malaria = new Infecciosa(cantidadDeCelulasQueAmenaza = 5000)
+	const lupus = new Autoinmune(cantidadDeCelulasQueAmenaza = 10000)
+
+	test "Hacer que la malaria se reproduzca" {
+		malaria.reproducirse()
+		assert.equals(10000, malaria.cantidadDeCelulasQueAmenaza())
+	}
+	
+	test "Hacer que Logan viva un día de su vida" {
+		malaria.reproducirse()
+		logan.contraerEnfermedad(malaria)
+		logan.vivirUnDia()
+		assert.equals(47, logan.temperatura())
+	}
+	
+	test "Hacer que Logan contraiga también lupus" {
+		malaria.reproducirse()
+		logan.contraerEnfermedad(malaria)
+		logan.vivirUnDia()
+		logan.contraerEnfermedad(lupus)
+		assert.that(logan.enfermedades().contains(lupus))
+	}
+	
+	test "Hacer que Logan viva otro día de su vida" {
+		malaria.reproducirse()
+		logan.contraerEnfermedad(malaria)
+		logan.vivirUnDia()
+		logan.contraerEnfermedad(lupus)
+		logan.vivirUnDia()
+		assert.equals(5000, logan.celulas())
+	}
+	
+	test "Hacer que dichas malaria se atenúe en 1000 y el lupus en 500." {
+		malaria.reproducirse()
+		logan.contraerEnfermedad(malaria)
+		logan.vivirUnDia()
+		logan.contraerEnfermedad(lupus)
+		logan.vivirUnDia()
+		logan.cambiaLaEnfermedad(malaria,4000)
+		logan.cambiaLaEnfermedad(lupus,9500)
+		assert.equals(9500, lupus.cantidadDeCelulasQueAmenaza())
+	}
+	
+	test "Hacer que Logan viva otro día de su vida." {
+		malaria.reproducirse()
+		logan.contraerEnfermedad(malaria)
+		logan.vivirUnDia()
+		logan.contraerEnfermedad(lupus)
+		logan.vivirUnDia()
+		logan.cambiaLaEnfermedad(malaria,4000)
+		logan.cambiaLaEnfermedad(lupus,9500)
+		logan.vivirUnDia()
+		assert.equals(0,logan.celulas())// murio
+	}
+}
+

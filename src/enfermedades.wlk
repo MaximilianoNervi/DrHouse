@@ -2,20 +2,29 @@ import pacientes.*
 
 class Enfermedad {
 
-	var cantidadDeCelulasQueAmenaza
+	var property cantidadDeCelulasQueAmenaza
 
-	method enfermarPaciente(paciente){ paciente}
+	method enfermarPaciente(paciente)
 
 	method cambia(cantidadDeCelulasQueVaAAmenazarAhora) {
 		cantidadDeCelulasQueAmenaza = cantidadDeCelulasQueVaAAmenazarAhora
 	}
 
+	method tratamiento(cantidad, paciente) {
+		if (cantidad < cantidadDeCelulasQueAmenaza) cantidadDeCelulasQueAmenaza = cantidadDeCelulasQueAmenaza - (cantidad) * 15 
+		else paciente.enfermedades().remove(self)
+	}
+
 }
 
-class Ifecciosa inherits Enfermedad {
+class Infecciosa inherits Enfermedad {
 
 	override method enfermarPaciente(paciente) {
 		paciente.aumentarTemperatura(cantidadDeCelulasQueAmenaza / 1000)
+	}
+
+	method reproducirse() {
+		cantidadDeCelulasQueAmenaza = cantidadDeCelulasQueAmenaza * 2
 	}
 
 }
@@ -26,9 +35,16 @@ class Autoinmune inherits Enfermedad {
 		paciente.disminucionDeCelulas(cantidadDeCelulasQueAmenaza)
 	}
 
-	method reproducirse(porCuanto) {
-		cantidadDeCelulasQueAmenaza * 2
-	}
+}
 
+object laMuerte inherits Enfermedad {
+
+	override method enfermarPaciente(paciente) {
+		paciente.temperatura(0)
+	}
+	
+	override method cambia(cantidadDeCelulasQueVaAAmenazarAhora){
+		
+	}
 }
 

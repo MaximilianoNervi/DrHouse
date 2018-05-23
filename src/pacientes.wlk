@@ -4,8 +4,8 @@ class Paciente {
 
 	var property enfermedades = []
 	var property temperatura = 37 // siempre en grados
-	var property celulas = 5000000
-
+	var property celulas = 15000
+	
 	method contraerEnfermedad(enfermedad) {
 		enfermedades.add(enfermedad)
 	}
@@ -23,8 +23,12 @@ class Paciente {
 	}
 
 	method disminucionDeCelulas(cantidad) {
-		celulas = celulas - cantidad
+		if (celulas>cantidad)celulas = celulas - cantidad
+		else celulas = 0
 	}
-
+	
+	method serTratado(cantidad){
+		enfermedades.forEach({enfermedad=>enfermedad.tratamiento(cantidad,self)})
+	}
 }
 
