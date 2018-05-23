@@ -1,26 +1,36 @@
 import doctores.*
 import enfermedades.*
+import pacientes.*
 
 describe "doctores" {
 
-	const foreman = new Doctor(cantidadDeMedicinaQueSuministra = 400, doctor = self)
-	const cameron = new Doctor(cantidadDeMedicinaQueSuministra = 300, doctor = self)
+	const foreman = new Doctor(cantidadDeMedicinaQueSuministra = 400)
+	const cameron = new Doctor(cantidadDeMedicinaQueSuministra = 300)
 	const drHouse = new JefeDeDepartamento()
 	const malaria = new Infecciosa(cantidadDeCelulasQueAmenaza = 5000)
 	const lupus = new Autoinmune(cantidadDeCelulasQueAmenaza = 10000)
 
+	
 	test "foreman Enfermo" {
 		foreman.contraerEnfermedad(malaria)
 		foreman.vivirUnDia()
-		assert.equals(42,foreman.temperatura())
+		assert.equals(42, foreman.temperatura())
 	}
-	
-	test "cameron se autotrata"{
+
+	test "cameron se autotrata" {
 		cameron.contraerEnfermedad(malaria)
 		cameron.vivirUnDia()
 		cameron.tratarPaciente(cameron)
-		assert.equals(500,malaria.cantidadDeCelulasQueAmenaza())
+		assert.equals(500, malaria.cantidadDeCelulasQueAmenaza())
 	}
 
+	test "house le pasa la bocha a cameron" {
+		const logan = new Paciente()
+		logan.contraerEnfermedad(malaria)
+		logan.vivirUnDia()
+		cameron.agregarPaciente(logan)
+		drHouse.tratarPaciente(logan)
+		assert.equals(500, malaria.cantidadDeCelulasQueAmenaza())
+	}
 }
 

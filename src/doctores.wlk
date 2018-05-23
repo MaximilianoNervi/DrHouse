@@ -3,8 +3,11 @@ import pacientes.*
 class Doctor inherits Paciente {
 
 	var cantidadDeMedicinaQueSuministra
-	var pacientes = []
-
+	var property pacientes = []
+	
+	method agregarPaciente(paciente){
+		pacientes.add(paciente)
+	}
 	method tratarse() {
 		self.tratarPaciente(self)
 	}
@@ -16,13 +19,16 @@ class Doctor inherits Paciente {
 }
 
 class JefeDeDepartamento inherits Paciente {
-	
+
 	var doctoresSubordinados = []
-	
-	method agregarSubordinados(doctor){
+
+	method agregarSubordinados(doctor) {
 		doctoresSubordinados.add(doctor)
 	}
+
 	method tratarPaciente(paciente) {
+		doctoresSubordinados.filter({c=>c.pacientes().contain(paciente)})
+				.tratarPaciente(paciente)
 	}
 
 }
