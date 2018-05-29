@@ -9,12 +9,17 @@ describe "doctores" {
 	const drHouse = new JefeDeDepartamento()
 	const malaria = new Infecciosa(cantidadDeCelulasQueAmenaza = 5000)
 	const lupus = new Autoinmune(cantidadDeCelulasQueAmenaza = 10000)
-
+	const logan = new Paciente()
 	
 	test "foreman Enfermo" {
 		foreman.contraerEnfermedad(malaria)
 		foreman.vivirUnDia()
 		assert.equals(42, foreman.temperatura())
+	}
+	
+	test "cameron es doctora de logan"{
+		cameron.agregarPaciente(logan)
+		assert.that(cameron.pacientes().contains(logan))
 	}
 
 	test "cameron se autotrata" {
@@ -25,10 +30,10 @@ describe "doctores" {
 	}
 
 	test "house le pasa la bocha a cameron" {
-		const logan = new Paciente()
 		logan.contraerEnfermedad(malaria)
 		logan.vivirUnDia()
 		cameron.agregarPaciente(logan)
+		drHouse.agregarSubordinados(cameron)
 		drHouse.tratarPaciente(logan)
 		assert.equals(500, malaria.cantidadDeCelulasQueAmenaza())
 	}

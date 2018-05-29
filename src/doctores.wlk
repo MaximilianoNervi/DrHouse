@@ -27,8 +27,9 @@ class JefeDeDepartamento inherits Paciente {
 	}
 
 	method tratarPaciente(paciente) {
-		doctoresSubordinados.filter({c=>c.pacientes().contain(paciente)})
-				.tratarPaciente(paciente)
+		
+		doctoresSubordinados.filter({doc=>doc.pacientes()== paciente}).map({doctores => doctores})
+				.forEach({doc => doc.tratarPaciente(paciente)})
 	}
 
 }

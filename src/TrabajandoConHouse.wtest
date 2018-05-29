@@ -14,8 +14,8 @@ import enfermedades.*
 
 describe "Segunda Parte Dr.House" {
 
-	const foreman = new Doctor(cantidadDeMedicinaQueSuministra = 400, doctor = self)
-	const cameron = new Doctor(cantidadDeMedicinaQueSuministra = 300, doctor = self)
+	const foreman = new Doctor(cantidadDeMedicinaQueSuministra = 400)
+	const cameron = new Doctor(cantidadDeMedicinaQueSuministra = 300)
 	const drHouse = new JefeDeDepartamento()
 	const logan = new Paciente()
 	const malaria = new Infecciosa(cantidadDeCelulasQueAmenaza = 5000)
@@ -28,9 +28,9 @@ describe "Segunda Parte Dr.House" {
 	}
 
 	test "Hacer que House atienda a Cameron" {
-		logan.cambiarDoctor(cameron)
-		logan.contraerEnfermedad(malaria)
-		drHouse.tratarPaciente(logan)
+		cameron.contraerEnfermedad(malaria)
+		cameron.agregarPaciente(cameron)
+		drHouse.tratarPaciente(cameron)
 		assert.equals(500, malaria.cantidadDeCelulasQueAmenaza())
 	}
 
