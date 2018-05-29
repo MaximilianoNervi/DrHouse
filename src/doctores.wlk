@@ -20,16 +20,15 @@ class Doctor inherits Paciente {
 
 class JefeDeDepartamento inherits Paciente {
 
-	var doctoresSubordinados = []
+	var property doctoresSubordinados = []
 
-	method agregarSubordinados(doctor) {
+	method agregarSubordinado(doctor) {
 		doctoresSubordinados.add(doctor)
 	}
 
 	method tratarPaciente(paciente) {
 		
-		doctoresSubordinados.filter({doc=>doc.pacientes()== paciente}).map({doctores => doctores})
-				.forEach({doc => doc.tratarPaciente(paciente)})
+		doctoresSubordinados.first().tratarPaciente(paciente)
 	}
 
 }

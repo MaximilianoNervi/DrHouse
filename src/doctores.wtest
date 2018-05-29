@@ -33,7 +33,7 @@ describe "doctores" {
 		logan.contraerEnfermedad(malaria)
 		logan.vivirUnDia()
 		cameron.agregarPaciente(logan)
-		drHouse.agregarSubordinados(cameron)
+		drHouse.agregarSubordinado(cameron)
 		drHouse.tratarPaciente(logan)
 		assert.equals(500, malaria.cantidadDeCelulasQueAmenaza())
 	}
